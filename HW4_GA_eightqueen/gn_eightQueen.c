@@ -39,13 +39,7 @@ void merge(){
 		swap(father[i],mother[i]);
 	}
 }
-//突變
-int mutation(int arr[]){
-	int ran1 = rand()%size;
-	int ran2 = rand()%size;
-	
-	return arr[ran1] = ran2;
-}
+
 //選擇父親母親
 void choseFM(int arr[],int N){
 	int i=0,j=0,col=0,row=0,total_col=0,Fran=0,Mran=0,count=0,min=0;
@@ -170,13 +164,16 @@ int main() {
 		printf("\n");
 	//開始基因演算法
 		while(1){
+			//選擇
 			int col=0,count=0;
 			choseFM(next_arr,N);
 			
+			//交配
 			merge();
 			int colF = colision(father);
 			int colM = colision(mother);
-
+			
+			//判斷生下的孩子哪個好就用哪個
 			if(colF>colM){
 				for(j=0;j<size;j++){
 					next_arr[j] = father[j];
@@ -187,6 +184,11 @@ int main() {
 					next_arr[j] = mother[j];
 				}
 				col = colM;
+			}
+			//看機率突變
+			if(rand()%prob==1){
+				next_arr[rand()%size] = rand()%size;
+				printf("突變了！！\n");
 			}
 			
 			//printf("分數：%d\n",colision(next_arr));
